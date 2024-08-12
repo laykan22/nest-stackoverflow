@@ -1,14 +1,22 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
+import { AuthModule } from './Auth/auth.module';
 import { QuestionModule } from './question/question.module';
-import { ConfigModule } from './config/config.module';
+import { ConfigModule } from '@nestjs/config'; // Correct import
 import { DatabaseModule } from './database/database.module';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
-  imports: [UserModule, QuestionModule, ConfigModule, DatabaseModule],
+  imports: [
+    ConfigModule.forRoot(),
+    AuthModule,
+    QuestionModule,
+    DatabaseModule
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, JwtService],
 })
-export class AppModule {}
+export class AppModule { }
+
+

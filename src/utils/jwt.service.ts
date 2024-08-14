@@ -34,8 +34,7 @@ export class TokenService {
             return { accessToken };
         } catch (err) {
 
-            console.error('Error generating token:', err);
-            throw new InternalServerErrorException('Failed to generate access token');
+            throw new InternalServerErrorException('err.message');
         }
     }
 }

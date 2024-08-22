@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsNumber, IsOptional, IsString, Min, Max } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class SearchQuestionsDto {
     @ApiProperty({
@@ -30,6 +31,15 @@ export class SearchQuestionsDto {
     keyword?: string;
 
     @ApiProperty({
+        example: 'How to calculate square root?',
+        description: 'Search by the question text',
+        required: false,
+    })
+    @IsString()
+    @IsOptional()
+    question?: string;
+
+    @ApiProperty({
         example: 'popularity',
         description: 'Sort by criteria',
         required: false,
@@ -45,6 +55,8 @@ export class SearchQuestionsDto {
     })
     @IsNumber()
     @IsOptional()
+    @Type(() => Number)
+    @Min(1)
     page?: number;
 
     @ApiProperty({
@@ -54,5 +66,8 @@ export class SearchQuestionsDto {
     })
     @IsNumber()
     @IsOptional()
+    @Type(() => Number)
+    @Min(1)
+    @Max(100)
     limit?: number;
 }

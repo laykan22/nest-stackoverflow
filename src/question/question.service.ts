@@ -4,6 +4,7 @@ import { privateDecrypt } from 'crypto';
 import { Model } from 'mongoose';
 import { CreateQuestionDto } from './dto/createQuestion.dto';
 import { Question } from 'src/schemas/Question.schema';
+import { SearchQuestionsDto } from './dto/searchQuestion.dto';
 
 export class QuestionService {
 
@@ -25,4 +26,20 @@ export class QuestionService {
         }
 
     }
+
+    async searchQuestion(dto: SearchQuestionsDto) {
+        console.log('Searching for:', dto.question);
+        const allQuestions = await this.questionModel.find({
+
+        });
+        console.log('Found questions:', allQuestions);
+
+        return {
+            statusCode: HttpStatus.OK,
+            data: allQuestions,
+        };
+    }
+
+
 }
+
